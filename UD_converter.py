@@ -22,7 +22,7 @@ def convertUD(d_name = "UD_Japanese-GSD"):
     for s in sentences:
         temp = []
         for w in s:
-            temp.append((w['form'], w['upos']))
+            temp.append((w['form'], w['head']))
         p_sentences.append(temp)
     return p_sentences
 

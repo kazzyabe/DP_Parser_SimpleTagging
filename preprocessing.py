@@ -100,7 +100,7 @@ def pad_X(X, ml):
                 padded_X.append(s)
     return padded_X
 
-maxlen_train = 50
+maxlen_train = maxlen_train
 
 X_train = pad_X(X_train, maxlen_train)
 X_test = pad_X(X_test, maxlen_train)
@@ -115,17 +115,19 @@ X_val = pad_X(X_val, maxlen_train)
 
 ## Padding y by "noun"
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-y_train = pad_sequences(maxlen=maxlen_train, sequences=y_train, padding="post", value=tagToIndex["NOUN"])
-y_val = pad_sequences(maxlen=maxlen_train, sequences=y_val, padding="post", value=tagToIndex["NOUN"])
-y_test = pad_sequences(maxlen=maxlen_train, sequences=y_test, padding="post", value=tagToIndex["NOUN"])
+y_train = pad_sequences(maxlen=maxlen_train, sequences=y_train, padding="post", value=tagToIndex[None])
+y_val = pad_sequences(maxlen=maxlen_train, sequences=y_val, padding="post", value=tagToIndex[None])
+y_test = pad_sequences(maxlen=maxlen_train, sequences=y_test, padding="post", value=tagToIndex[None])
 
 
 import numpy as np
 batch_size = 32
 X_train, X_val = np.array(X_train[:121*batch_size]), np.array(X_val[-13*batch_size:])
+X_test = np.array(X_test)
 y_train, y_val = y_train[:121*batch_size], y_val[-13*batch_size:]
 y_train = y_train.reshape(y_train.shape[0], y_train.shape[1], 1)
 y_val = y_val.reshape(y_val.shape[0], y_val.shape[1], 1)
+y_test = y_test.reshape(y_test.shape[0], y_test.shape[1], 1)
 
 p.dump(X_train, open("data/X_train.p", 'wb'))
 p.dump(X_test, open("data/X_test.p", 'wb'))

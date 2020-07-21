@@ -14,7 +14,7 @@ import os
 
 
 class POS_Tagger:
-    def __init__(self, X_train=None, y_train=None, X_val=None, y_val=None, hidden_neurons=512, epochs=1, batch_size=32, verbose=1, max_len=50, n_tags=17, load_f=False, loadFile="tmp/model.h5"):
+    def __init__(self, X_train=None, y_train=None, X_val=None, y_val=None, hidden_neurons=512, epochs=1, batch_size=32, verbose=1, max_len=159, n_tags=131, load_f=False, loadFile="tmp/model.h5"):
         '''
         load_f : flag to load a model (eg set to True load a model)
         '''
