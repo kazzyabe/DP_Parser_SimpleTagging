@@ -16,6 +16,7 @@ X_val = p.load(open("data/X_val.p", "rb"))
 y_tr = p.load(open("data/y_train.p", "rb"))
 y_test = p.load(open("data/y_test.p", "rb"))
 y_val = p.load(open("data/y_val.p", "rb"))
+tagToIndex = p.load(open("data/tagToIndex.p", "rb"))
 
 
 # import numpy as np

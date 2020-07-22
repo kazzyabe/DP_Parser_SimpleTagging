@@ -18,13 +18,21 @@ np.random.seed(CUST_SEED)
 
 # Data set from nltk: (term, tag)
 from UD_converter import convertUD
-# d_name = "/Users/kazuyabe/Data/UD_English-EWT"
 sentences = convertUD(args.directory)
 
+
+maxlen_train = 50
+tmp = []
+for s in sentences:
+    if len(s) <= maxlen_train:
+        tmp.append(s)
+
+sentences = tmp
 # Extracting a set of tags: 12 tags
 tags = set([tag for sent in sentences for _, tag in sent])
 # Extracting a set of words: 12408 words
 words = set([term for sent in sentences for term,_ in sent])
+
 
 ### Separating into train, validation, test data sets
 train_test_cutoff = int(.80 * len(sentences)) 
@@ -75,32 +83,31 @@ y_val = yToIndex(y_val)
 
 
 ##### Padding ###############################################
-maxlen_train = [len(s) for s in X_train]
-maxlen_train.sort()
-maxlen_train = maxlen_train[-1]
+# maxlen_train = [len(s) for s in X_train]
+# maxlen_train.sort()
+# maxlen_train = maxlen_train[-1]
 
-maxlen_test = [len(s) for s in X_test]
-maxlen_test.sort()
-maxlen_test = maxlen_test[-1]
+# maxlen_test = [len(s) for s in X_test]
+# maxlen_test.sort()
+# maxlen_test = maxlen_test[-1]
 
-maxlen_val = [len(s) for s in X_val]
-maxlen_val.sort()
-maxlen_val = maxlen_val[-1]
+# maxlen_val = [len(s) for s in X_val]
+# maxlen_val.sort()
+# maxlen_val = maxlen_val[-1]
 
 def pad_X(X, ml):
     padded_X = []
     for s in X:
-        if len(s) < ml:
+        if len(s) <= ml:
             pad = ["__PAD__"] * (ml - len(s))
             padded_X.append(s+pad)
-        else:
-            if len(s) > ml:
-                padded_X.append(s[:ml])
-            else:
-                padded_X.append(s)
+        # else:
+            # if len(s) > ml:
+            #     padded_X.append(s[:ml])
+            # else:
+            #     padded_X.append(s)
     return padded_X
 
-maxlen_train = maxlen_train
 
 X_train = pad_X(X_train, maxlen_train)
 X_test = pad_X(X_test, maxlen_train)
