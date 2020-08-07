@@ -34,7 +34,7 @@ import numpy as np
 tf.disable_eager_execution()
 
 parser = Dependency_Parser(epochs=10)
-hist = parser.fit(X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
+hist = parser.fit(X_tr=X_tr, y_tr=y_tr, val=(X_val, y_val))
 p.dump(hist.history, open("./tmp/history.p", "wb"))
 # score = parser.evaluate(X_test, y_test)
 # print(score)
