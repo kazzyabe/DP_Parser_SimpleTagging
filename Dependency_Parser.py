@@ -13,7 +13,7 @@ from ElmoLayer import ElmoLayer
 import os
 
 class Dependency_Parser:
-    def __init__(self, hidden_neurons=512, epochs=1, batch_size=32, verbose=1, max_len=50, n_tags=50, load_f=False, loadFile="tmp/model.h5"):
+    def __init__(self, hidden_neurons=512, epochs=1, batch_size=32, verbose=1, max_len=50, n_tags=51, load_f=False, loadFile="tmp/model.h5"):
         self.hidden_neurons = hidden_neurons
         self.epochs = epochs
         self.batch_size = batch_size
