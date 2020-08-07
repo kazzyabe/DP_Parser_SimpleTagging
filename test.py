@@ -1,4 +1,7 @@
 import argparse
+import tensorflow.compat.v1 as tf
+import tensorflow_hub as hub
+from tensorflow.compat.v1.keras import backend as K
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--directory", help="path to the Universal Dependencies data directory", default="/Users/kazuyabe/Data/UD_Japanese-GSD")
@@ -28,9 +31,10 @@ tagToIndex = p.load(open("data/tagToIndex.p", "rb"))
 import numpy as np
 # X_test = np.array(X_test)
 # y_test = y_test.reshape(y_test.shape[0], y_test.shape[1], 1)
+tf.disable_eager_execution()
 
 parser = Dependency_Parser(epochs=10)
-hist = parser.fit(data=True, X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
+hist = parser.fit(X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
 p.dump(hist.history, open("./tmp/history.p", "wb"))
-score = parser.evaluate(X_test, y_test)
-print(score)
+# score = parser.evaluate(X_test, y_test)
+# print(score)
