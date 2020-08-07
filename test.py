@@ -5,7 +5,7 @@ parser.add_argument("-d", "--directory", help="path to the Universal Dependencie
 parser.add_argument("-m", "--model", help="name for saving the model", default="./tmp/model.h5")
 args = parser.parse_args()
 
-from model import POS_Tagger
+from Dependency_Parser import Dependency_Parser
 
 batch_size = 32
 
@@ -26,11 +26,11 @@ tagToIndex = p.load(open("data/tagToIndex.p", "rb"))
 # y_val = y_val.reshape(y_val.shape[0], y_val.shape[1], 1)
 
 import numpy as np
-X_test = np.array(X_test)
-y_test = y_test.reshape(y_test.shape[0], y_test.shape[1], 1)
+# X_test = np.array(X_test)
+# y_test = y_test.reshape(y_test.shape[0], y_test.shape[1], 1)
 
-tagger = POS_Tagger()
-hist = tagger.fit(data=True, X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
+parser = Dependency_Parser()
+hist = parser.fit(data=True, X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
 p.dump(hist.history, open("./tmp/history.p", "wb"))
-score = tagger.evaluate(X_test, y_test)
+score = parser.evaluate(X_test, y_test)
 print(score)
