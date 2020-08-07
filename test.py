@@ -29,7 +29,7 @@ import numpy as np
 # X_test = np.array(X_test)
 # y_test = y_test.reshape(y_test.shape[0], y_test.shape[1], 1)
 
-parser = Dependency_Parser()
+parser = Dependency_Parser(epochs=10)
 hist = parser.fit(data=True, X_train=X_tr, y_train=y_tr, validation_data=(X_val, y_val))
 p.dump(hist.history, open("./tmp/history.p", "wb"))
 score = parser.evaluate(X_test, y_test)
