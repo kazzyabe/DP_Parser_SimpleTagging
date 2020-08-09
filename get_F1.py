@@ -6,6 +6,41 @@ res_test = p.load(open("Res/X_test.p", "rb"))
 y_train = p.load(open("data/y_train.p", "rb"))
 y_test = p.load(open("data/y_test.p", "rb"))
 
+# get actual length of the sentences
+len_tr = []
+len_test = []
+
+for s in X_tr:
+    i = 0
+    for w in s:
+        if w == "__PAD__":
+            break
+        else:
+            i += 1
+    len_tr.append(i)
+
+for s in X_test:
+    i = 0
+    for w in s:
+        if w == "__PAD__":
+            break
+        else:
+            i += 1
+    len_test.append(i)
+
+# set all padded parts to 0
+for i in range(res_tr.shape[0]):
+    for j in range(res_tr.shape[1]):
+        for k in range(res_tr.shape[2]):
+            if j < len_tr[i] and k >= len_tr[i]:
+                res_tr[i, j, k] = 0
+
+for i in range(res_test.shape[0]):
+    for j in range(res_test.shape[1]):
+        for k in range(res_test.shape[2]):
+            if j < len_test[i] and k >= len_test[i]:
+                res_test[i, j, k] = 0
+
 import numpy as np
 res_tr = np.argmax(res_tr, axis=2)
 res_test = np.argmax(res_test, axis=2)
